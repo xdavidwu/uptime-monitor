@@ -7,12 +7,22 @@ class PingProbe extends CommandProbe
     public function __construct($host)
     {
         $this->host = $host;
-        parent::__construct([
-            'ping',
-            '-c1',
-            '-W1',
-            $host
-        ]);
+        if (strpos($host, ':') === false) {
+            parent::__construct([
+                'ping',
+                '-c1',
+                '-W1',
+                $host
+            ]);
+        } else {
+            parent::__construct([
+                'ping',
+                '-6',
+                '-c1',
+                '-W1',
+                $host
+            ]);
+        }
     }
 
     public function describe()
