@@ -106,6 +106,21 @@
             .uptime-item.unknown {
                 background: #ccc;
             }
+
+            @media (prefers-color-scheme: dark) {
+                body {
+                    background: black;
+                    color: white;
+                }
+
+                .card {
+                    background: #202124;
+                }
+
+                .uptime-item.unknown {
+                    background: #666;
+                }
+            }
         </style>
     </head>
     <body>
