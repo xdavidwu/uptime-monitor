@@ -8,6 +8,27 @@
             body {
                 background-color: #fafafa;
                 font-family: sans-serif;
+                padding: 8px;
+            }
+
+            nav {
+                position: sticky;
+                background-color: #3F51B5;
+                line-height: 18px;
+                top: 0px;
+                margin: -16px -16px 16px -16px;
+                padding: 20px;
+                padding-left: 32px;
+                color: white;
+                background-color: #3F51B5;
+                box-shadow: 0 2px 4px rgba(0,0,0,.5);
+                font-size: 18px;
+            }
+
+            main {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
             .card {
@@ -88,30 +109,33 @@
         </style>
     </head>
     <body>
-        @foreach ($data as $instance)
-            <div class="card">
-                <div class="titlebar">
-                    <span class="title">{{ $instance['title'] }}</span>
-                    @if (!$instance['logs'][count($instance['logs']) - 1]['known'])
-                        <span class="status unknown">Unknown</span>
-                    @elseif ($instance['logs'][count($instance['logs']) - 1]['up'])
-                        <span class="status up">Operational</span>
-                    @else
-                        <span class="status down">Malfunctioning</span>
-                    @endif
-                </div>
-                <div class="uptime-view">
-                    <div class="uptime-from">{{ $instance['logs'][0]['from'] }}</div>
-                    <div class="uptime-grid">
-                        @foreach ($instance['logs'] as $log)
-                            <div class="uptime-item {{ $log['known'] ? $log['up'] ? 'up' : 'down' : 'unknown' }}"
-                                title="{{ "{$log['from']} ~ {$log['to']}: {$log['info']}" }}">
-                            </div>
-                        @endforeach
+        <nav>{{ config('app.name') }}</nav>
+        <main>
+            @foreach ($data as $instance)
+                <div class="card">
+                    <div class="titlebar">
+                        <span class="title">{{ $instance['title'] }}</span>
+                        @if (!$instance['logs'][count($instance['logs']) - 1]['known'])
+                            <span class="status unknown">Unknown</span>
+                        @elseif ($instance['logs'][count($instance['logs']) - 1]['up'])
+                            <span class="status up">Operational</span>
+                        @else
+                            <span class="status down">Malfunctioning</span>
+                        @endif
                     </div>
-                    <div class="uptime-to">{{ $instance['logs'][count($instance['logs']) - 1]['to'] }}</div>
+                    <div class="uptime-view">
+                        <div class="uptime-from">{{ $instance['logs'][0]['from'] }}</div>
+                        <div class="uptime-grid">
+                            @foreach ($instance['logs'] as $log)
+                                <div class="uptime-item {{ $log['known'] ? $log['up'] ? 'up' : 'down' : 'unknown' }}"
+                                    title="{{ "{$log['from']} ~ {$log['to']}: {$log['info']}" }}">
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="uptime-to">{{ $instance['logs'][count($instance['logs']) - 1]['to'] }}</div>
+                    </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </main>
     </body>
 </html>
