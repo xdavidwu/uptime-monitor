@@ -105,7 +105,7 @@
                     <div class="uptime-grid">
                         @foreach ($instance['logs'] as $log)
                             <div class="uptime-item {{ $log['known'] ? $log['up'] ? 'up' : 'down' : 'unknown' }}"
-                                title="{{ "{$log['from']} to {$log['to']}" }}">
+                                title="{{ "{$log['from']} ~ {$log['to']}: {$log['info']}" }}">
                             </div>
                         @endforeach
                     </div>
