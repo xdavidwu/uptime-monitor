@@ -38,11 +38,11 @@ class MonitorList extends Command
      */
     public function handle()
     {
-        $headers = ['ID', 'Description'];
+        $headers = ['ID', 'Title', 'Description'];
         $rows = [];
         foreach (ProbeInstance::all() as $probe_instance) {
             $probe = unserialize($probe_instance->probe);
-            $rows[] = [$probe_instance->id, $probe->describe()];
+            $rows[] = [$probe_instance->id, $probe_instance->title, $probe->describe()];
         }
         $this->table($headers, $rows);
     }

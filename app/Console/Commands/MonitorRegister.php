@@ -13,6 +13,7 @@ class MonitorRegister extends Command
      * @var string
      */
     protected $signature = 'monitor:register
+                            {title : User-facing string of service this probe checks}
                             {class : Class of the probe}
                             {args?* : Extra arguments of <class> constructor}';
 
@@ -48,6 +49,7 @@ class MonitorRegister extends Command
 
         $record = new ProbeInstance();
         $record->probe = serialize($probe);
+        $record->title = $this->argument('title');
         $record->save();
     }
 }
