@@ -17,7 +17,28 @@
                 box-shadow: 0 1px 1px 0 rgba(60,64,67,.08),0 1px 3px 1px rgba(60,64,67,.16);
                 padding: 16px;
                 margin: 16px;
-                //overflow: auto;
+            }
+
+            .titlebar {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+
+            .status {
+                font-size: 14px;
+            }
+
+            .status.up {
+                color: #0f0;
+            }
+
+            .status.down {
+                color: #f00;
+            }
+
+            .status.unknown {
+                color: #888;
             }
 
             .uptime-view {
@@ -48,15 +69,15 @@
                 height: 8px;
             }
 
-            .up {
+            .uptime-item.up {
                 background: #0f0;
             }
 
-            .down {
+            .uptime-item.down {
                 background: #f00;
             }
 
-            .unknown {
+            .uptime-item.unknown {
                 background: #ccc;
             }
         </style>
@@ -64,12 +85,21 @@
     <body>
         @foreach ($data as $instance)
             <div class="card">
-                {{ $instance['title'] }}
+                <div class="titlebar">
+                    <span class="title">{{ $instance['title'] }}</span>
+                    @if (!$instance['logs'][count($instance['logs']) - 1]['known'])
+                        <span class="status unknown">Unknown</span>
+                    @elseif ($instance['logs'][count($instance['logs']) - 1]['up'])
+                        <span class="status up">Operational</span>
+                    @else
+                        <span class="status down">Malfunctioning</span>
+                    @endif
+                </div>
                 <div class="uptime-view">
                     <div class="uptime-from">{{ $instance['logs'][0]['from'] }}</div>
                     <div class="uptime-grid">
                         @foreach ($instance['logs'] as $log)
-                            <div class="uptime-item {{ $log['known'] ? $log['up'] ? 'up' : 'down' : 'unknown'}}"
+                            <div class="uptime-item {{ $log['known'] ? $log['up'] ? 'up' : 'down' : 'unknown' }}"
                                 title="{{ "{$log['from']} to {$log['to']}" }}">
                             </div>
                         @endforeach
