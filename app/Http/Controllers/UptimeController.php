@@ -13,7 +13,7 @@ class UptimeController extends Controller
     {
         $to = Carbon::now();
         $from = Carbon::now()->subDays(7);
-        $timeslot = CarbonInterval::minutes(90);
+        $timeslot = CarbonInterval::minutes(60);
         $instances = ProbeInstance::all();
         $data = [];
         foreach ($instances as $instance) {
