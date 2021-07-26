@@ -71,10 +71,15 @@
 
             .uptime-item.up {
                 background: #0f0;
+                border-radius: 50%;
             }
 
             .uptime-item.down {
-                background: #f00;
+                width: 0;
+                height: 0;
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-bottom: 8px solid #f00;
             }
 
             .uptime-item.unknown {
