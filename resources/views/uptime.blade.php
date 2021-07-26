@@ -30,7 +30,7 @@
             }
 
             .status.up {
-                color: #0f0;
+                color: #0d0;
             }
 
             .status.down {
