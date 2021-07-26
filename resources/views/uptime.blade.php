@@ -63,7 +63,6 @@
             }
 
             .uptime-view {
-                width: 320px;
                 margin-top: 8px;
             }
 
@@ -78,8 +77,8 @@
 
             .uptime-grid {
                 display: grid;
-                column-gap: 1%;
-                row-gap: 2px;
+                column-gap: 3px;
+                row-gap: 3px;
                 grid-template-rows: repeat(6, 1fr);
                 grid-auto-flow: column;
                 margin: 4px 0;
