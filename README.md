@@ -1,6 +1,6 @@
 # uptime-monitor
 
-A simple server status monitoring tool, built on top of Laravel framework.
+A simple server status monitoring tool, built on top of Lumen framework.
 
 ## setup
 
