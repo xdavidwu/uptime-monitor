@@ -49,7 +49,7 @@ class UptimeController extends Controller
             }
 
             $data[] = [
-                'description' => $probe->describe(),
+                'title' => $instance->title ?? $probe->describe(),
                 'logs' => $logs,
             ];
         }

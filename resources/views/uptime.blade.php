@@ -64,7 +64,7 @@
     <body>
         @foreach ($data as $instance)
             <div class="card">
-                {{ $instance['description'] }}
+                {{ $instance['title'] }}
                 <div class="uptime-view">
                     <div class="uptime-from">{{ $instance['logs'][0]['from'] }}</div>
                     <div class="uptime-grid">
