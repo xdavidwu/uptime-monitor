@@ -42,19 +42,23 @@ class MonitorProbe extends Command
     {
         foreach (ProbeInstance::all() as $probe_instance) {
             $probe = unserialize($probe_instance->probe);
-            try {
-                $probe->execute();
-                $log = new ProbeLog();
-                $log->success = true;
-                $probe_instance->logs()->save($log);
-            } catch (Exception $e) {
-                $this->error($probe->describe() . ' failed');
-                $this->info($e->getMessage());
-                $log = new ProbeLog();
-                $log->success = false;
-                $log->outputs = $e->getMessage();
-                $probe_instance->logs()->save($log);
+            $success = false;
+            $lastlog = '';
+            for ($i = env('MONITOR_PROBE_MAX_TRIES', 1); $i > 0; $i--) {
+                try {
+                    $probe->execute();
+                    $success = true;
+                    break;
+                } catch (Exception $e) {
+                    $this->error("{$probe->describe()} failed, $i tries left");
+                    $this->info($e->getMessage());
+                    $lastlog = $e->getMessage();
+                }
             }
+            $log = new ProbeLog();
+            $log->success = $success;
+            $log->outputs = $lastlog;
+            $probe_instance->logs()->save($log);
         }
     }
 }
