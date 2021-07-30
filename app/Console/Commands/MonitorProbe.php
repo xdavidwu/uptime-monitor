@@ -50,7 +50,8 @@ class MonitorProbe extends Command
                     $success = true;
                     break;
                 } catch (Exception $e) {
-                    $this->error("{$probe->describe()} failed, $i tries left");
+                    $left = $i - 1;
+                    $this->error("{$probe->describe()} failed, {$left} tries left");
                     $this->info($e->getMessage());
                     $lastlog = $e->getMessage();
                 }
