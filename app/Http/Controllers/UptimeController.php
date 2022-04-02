@@ -17,8 +17,6 @@ class UptimeController extends Controller
         $instances = ProbeInstance::all();
         $data = [];
         foreach ($instances as $instance) {
-            $probe = unserialize($instance->probe);
-
             $raw_logs = $instance->logs()->where('created_at', '>=', $from)->orderBy('created_at')->get();
             $raw_index = 0;
             $raw_length = count($raw_logs);
@@ -49,7 +47,7 @@ class UptimeController extends Controller
             }
 
             $data[] = [
-                'title' => $instance->title ?? $probe->describe(),
+                'title' => $instance->title ?? unserialize($instance->probe)->describe(),
                 'logs' => $logs,
             ];
         }
