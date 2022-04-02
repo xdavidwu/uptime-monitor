@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\ProbeInstance;
+use App\Models\ProbeInstance;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Request;

@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\ProbeInstance;
+use App\Models\ProbeInstance;
 use Illuminate\Console\Command;
 
 class MonitorList extends Command

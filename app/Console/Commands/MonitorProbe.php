@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\ProbeInstance;
-use App\ProbeLog;
+use App\Models\ProbeInstance;
+use App\Models\ProbeLog;
 use Exception;
 use Illuminate\Console\Command;
 
