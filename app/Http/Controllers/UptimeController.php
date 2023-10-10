@@ -11,6 +11,9 @@ class UptimeController extends Controller
 {
     public function show()
     {
+        Carbon::setToStringFormat(function ($carbon) {
+            return $carbon->toIso8601ZuluString();
+        });
         $to = Carbon::now();
         $from = Carbon::now()->subDays(7);
         $timeslot = CarbonInterval::minutes(60);
