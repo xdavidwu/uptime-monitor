@@ -151,5 +151,17 @@
                 </div>
             @endforeach
         </main>
+        <script>
+            for (const view of document.querySelectorAll('.uptime-view')) {
+                const from = view.querySelector('.uptime-from');
+                from.innerText = new Date(from.innerText).toLocaleString();
+                const to = view.querySelector('.uptime-to');
+                to.innerText = new Date(to.innerText).toLocaleString();
+
+                for (const item of view.querySelectorAll('.uptime-item')) {
+                    item.title = item.title.replace(/\d{4}-\d{2}\-\d{2}T\d{2}:\d{2}:\d{2}Z/g, (str) => new Date(str).toLocaleString());
+                }
+            }
+        </script>
     </body>
 </html>
