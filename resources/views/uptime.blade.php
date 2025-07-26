@@ -66,12 +66,12 @@
                 margin-top: 8px;
             }
 
-            .uptime-from, .uptime-to {
+            .uptime-ts {
                 font-size: 10px;
                 color: #aaa;
             }
 
-            .uptime-to {
+            .uptime-ts.to {
                 text-align: right;
             }
 
@@ -129,39 +129,30 @@
                 <div class="card">
                     <div class="titlebar">
                         <span class="title">{{ $instance['title'] }}</span>
-                        @if (!$instance['logs'][count($instance['logs']) - 1]['known'])
-                            <span class="status unknown">Unknown</span>
-                        @elseif ($instance['logs'][count($instance['logs']) - 1]['up'])
-                            <span class="status up">Operational</span>
-                        @else
-                            <span class="status down">Malfunctioning</span>
-                        @endif
+                        <span class="status {{ $instance['logs'][count($instance['logs']) - 1]['state'] }}">{{ $instance['logs'][count($instance['logs']) - 1]['info'] }}</span>
                     </div>
                     <div class="uptime-view">
-                        <div class="uptime-from">{{ $instance['logs'][0]['from'] }}</div>
+                        <div class="uptime-ts from">{{ $instance['logs'][0]['from'] }}</div>
                         <div class="uptime-grid">
                             @foreach ($instance['logs'] as $log)
-                                <div class="uptime-item {{ $log['known'] ? $log['up'] ? 'up' : 'down' : 'unknown' }}"
+                                <div class="uptime-item {{ $log['state'] }}"
                                     title="{{ "{$log['from']} ~ {$log['to']}: {$log['info']}" }}">
                                 </div>
                             @endforeach
                         </div>
-                        <div class="uptime-to">{{ $instance['logs'][count($instance['logs']) - 1]['to'] }}</div>
+                        <div class="uptime-ts to">{{ $instance['logs'][count($instance['logs']) - 1]['to'] }}</div>
                     </div>
                 </div>
             @endforeach
         </main>
         <script>
-            for (const view of document.querySelectorAll('.uptime-view')) {
-                const from = view.querySelector('.uptime-from');
-                from.innerText = new Date(from.innerText).toLocaleString();
-                const to = view.querySelector('.uptime-to');
-                to.innerText = new Date(to.innerText).toLocaleString();
-
-                for (const item of view.querySelectorAll('.uptime-item')) {
-                    item.title = item.title.replace(/\d{4}-\d{2}\-\d{2}T\d{2}:\d{2}:\d{2}Z/g, (str) => new Date(str).toLocaleString());
-                }
-            }
+            const formatTimestamp = (s) => new Date(s).toLocaleString();
+            document.querySelectorAll('.uptime-ts').forEach((ts) => {
+                ts.innerText = formatTimestamp(ts.innerText);
+            });
+            document.querySelectorAll('.uptime-item').forEach((item) => {
+                item.title = item.title.replace(/\d{4}-\d{2}\-\d{2}T\d{2}:\d{2}:\d{2}Z/g, formatTimestamp);
+            });
         </script>
     </body>
 </html>

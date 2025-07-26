@@ -29,13 +29,11 @@ class UptimeController extends Controller
 
                 $known = false;
                 $up = true;
-                $info = 'Probe succeeded';
                 while ($raw_index < $raw_length &&
                         $raw_logs[$raw_index]->created_at < $localto) {
                     $known = true;
                     if ($raw_logs[$raw_index]->success == false) {
                         $up = false;
-                        $info = 'Probe failed';
                     }
                     $raw_index++;
                 }
@@ -43,9 +41,8 @@ class UptimeController extends Controller
                 $logs[] = [
                     'from' => $i->copy(),
                     'to' => $localto,
-                    'known' => $known,
-                    'up' => $up,
-                    'info' => $known ? $info : 'Unknown',
+                    'state' => $known ? $up ? 'up' : 'down' : 'unknown',
+                    'info' => $known ? $up ? 'Operational' : 'Malfunctioning' : 'Unknown',
                 ];
             }
 
@@ -54,6 +51,6 @@ class UptimeController extends Controller
                 'logs' => $logs,
             ];
         }
-        return view('uptime', [ 'data' => $data, 'from' => $from, 'to' => $to ]);
+        return view('uptime', [ 'data' => $data ]);
     }
 }
