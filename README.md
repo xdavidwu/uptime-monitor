@@ -17,7 +17,3 @@ Set `MONITOR_PROBE_MAX_TRIES` (defaults to 1) in `.env` if you want probes to re
 `monitor:probe` should be run once every hour. Set up a cron job for it.
 
 The served web page will list the status for all probes, under user-facing string descibing the monitored service specified by you instead of detailed description. Currently 7 days of historical data will be visualized.
-
-## notes
-
-I built this project for my own usage on a restrictive environment that is hard to change. If features that requires environment that cannot be statisfied by mine is desired, it will be maintianed in a new branch. I will still mainly focus on maintaining the old branch that is compatible with my environment.
