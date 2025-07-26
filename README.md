@@ -4,7 +4,7 @@ A simple server status monitoring tool, built on top of Lumen framework.
 
 ## setup
 
-Set up like all other Laravel (6.x) apps. A php environment and database is needed, all other Laravel functions like mailing is not used. For database, only sqlite has been tested.
+Set up like all other Laravel/Lumen apps. A php environment and database is needed, all other Laravel functions like mailing is not used. For database, only sqlite has been tested.
 
 Some probes are implemented by external commands, and those command will likely compatible with Linux environments only.
 
@@ -17,3 +17,7 @@ Set `MONITOR_PROBE_MAX_TRIES` (defaults to 1) in `.env` if you want probes to re
 `monitor:probe` should be run once every hour. Set up a cron job for it.
 
 The served web page will list the status for all probes, under user-facing string descibing the monitored service specified by you instead of detailed description. Currently 7 days of historical data will be visualized.
+
+## SSG
+
+This contains only a single, self-containing page, and can be used as SSG via executing `public/index.php`.
